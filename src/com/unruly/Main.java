@@ -8,6 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 public class Main extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -38,6 +43,18 @@ public class Main extends JFrame {
 		userGuess.setBounds(62, 83, 86, 20);
 		getContentPane().add(userGuess);
 		userGuess.setColumns(10);
+		userGuess.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				try {
+					checkGuess();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		});
 		
 		JButton submitGuess = new JButton("Submit");
 		submitGuess.setBounds(59, 111, 89, 23);
@@ -86,6 +103,9 @@ public class Main extends JFrame {
 			numberInfoOutput.setText("You win!");
 			restartButton.setVisible(true);
 		}
+		
+		userGuess.requestFocus();
+		userGuess.selectAll();
 	}
 	
 	// We just change the random number and delete any old data and start again!
